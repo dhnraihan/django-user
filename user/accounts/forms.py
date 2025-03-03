@@ -5,6 +5,10 @@ from django.contrib.auth.models import User
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update({
@@ -20,9 +24,6 @@ class UserRegistrationForm(UserCreationForm):
             'class': 'appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
         })
     
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2')
 
 class UserLoginForm(forms.Form):
     username = forms.CharField(
